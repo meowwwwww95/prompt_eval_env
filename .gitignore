@@ -1,0 +1,20 @@
+.env
+outputs/
+__pycache__/
+
+# Dataset: 忽略所有，但保留 demo 目录
+dataset/*
+!dataset/labeled_data_demo/
+!dataset/labeled_data_demo/**
+
+# Prompts: 忽略所有，但保留 demo 文件
+prompts/*
+!prompts/demo*
+
+# Config: 忽略所有，但保留 demo 文件
+config/*
+!config/*demo*
+
+*.pyc
+docs/
+temp/

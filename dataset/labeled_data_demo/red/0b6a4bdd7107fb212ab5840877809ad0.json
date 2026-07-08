@@ -1,0 +1,14 @@
+{
+  "channelId": "89332653194514390",
+  "qId": "0b6a4bdd7107fb212ab5840877809ad0",
+  "timestamp": "2026-07-01 21:53:15",
+  "uid": "9163396031613546",
+  "question": "基本面好，技术面好，资金面好的个股短期可以上涨，可以超买的个股，非科创板，非北交所非ST。",
+  "voice": "https://eastmoney-llm.oss-cn-shanghai.aliyuncs.com/ai-trading/prd/multimodal/2026-07/2026-07-01/6b8xECYbkJ.wav",
+  "source": "mxapp",
+  "history_question": "公司好，业绩好，有主力机构一致，认为有上涨空间的个股，有主力机构看好上涨空间的个股，参考建议，可以低吸。非科创板，非北交所非ST。",
+  "history_skill": "一眼看票",
+  "model_judgment": "否",
+  "model_reason": "当前问句是筛选符合条件的个股，而非对单一股票进行快速分析，意图不同。",
+  "label": "red"
+}

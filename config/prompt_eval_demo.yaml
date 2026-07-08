@@ -1,0 +1,19 @@
+prompt_files:
+  - demo_prompt.txt
+
+datasets:
+  - all
+
+dataset_root: dataset/labeled_data_demo
+output_root: outputs
+
+sample_size: 0
+seed: 42
+max_workers: 10
+timeout: 60
+temperature: 0.1
+request_delay: 0
+
+api_url: ${PROMPT_EVAL_API_URL}
+api_key: ${PROMPT_EVAL_API_KEY}
+model: your-model-name

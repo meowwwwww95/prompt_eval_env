@@ -1,0 +1,22 @@
+{
+  "file": "demo.xlsx",
+  "total_rows": 3,
+  "green": 1,
+  "yellow": 1,
+  "red": 1,
+  "uncolored": 0,
+  "labeled_total": 3,
+  "columns": [
+    "channelId",
+    "qId",
+    "timestamp",
+    "uid",
+    "question",
+    "voice",
+    "source",
+    "history_question",
+    "history_skill",
+    "model_judgment",
+    "model_reason"
+  ]
+}

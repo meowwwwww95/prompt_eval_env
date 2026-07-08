@@ -1,0 +1,14 @@
+{
+  "channelId": "89332644638146949",
+  "qId": "0a2abbeed447128169e5d67ec05235d7",
+  "timestamp": "2026-07-01 23:14:54",
+  "uid": "1636067666381620",
+  "question": "帮我分析北向资金在2026年Q2的调仓动向。",
+  "voice": "",
+  "source": "mxapp",
+  "history_question": "@机构底牌 分析 公募基金/北向资金/社保基金...",
+  "history_skill": "机构底牌",
+  "model_judgment": "否",
+  "model_reason": "当前问句新增了时间维度（2026年Q2）和调仓动作，与历史问句的通用分析任务不同。",
+  "label": "yellow"
+}
