@@ -55,6 +55,9 @@ def parse_args() -> argparse.Namespace:
     run_parser.add_argument('--model', help='模型名称')
     run_parser.add_argument('--output-root', help='输出目录根路径')
     run_parser.add_argument('--request-delay', type=float, help='每次请求前的延迟秒数，用于限流')
+    run_parser.add_argument('--dataset-adapter', help='临时覆盖数据集适配器名称')
+    run_parser.add_argument('--context-adapter', help='临时覆盖上下文适配器名称')
+    run_parser.add_argument('--output-parser', help='临时覆盖输出解析器名称')
 
     datasets_parser = subparsers.add_parser('datasets', help='查看本地数据集信息')
     datasets_subparsers = datasets_parser.add_subparsers(dest='datasets_command', required=True)
@@ -493,6 +496,12 @@ def interactive_run(yaml_config: dict[str, Any]) -> int:
     print('[run] 直接回车表示使用 YAML 默认值。')
     print(f"[run] 当前默认 prompts: {', '.join(yaml_config.get('prompt_files') or []) or '(未配置)'}")
     print(f"[run] 当前默认 datasets: {', '.join(yaml_config.get('datasets') or []) or '(未配置)'}")
+    print(
+        '[run] 当前默认 adapters: '
+        f"dataset={yaml_config.get('dataset_adapter') or 'default'} | "
+        f"context={yaml_config.get('context_adapter') or 'default'} | "
+        f"output={yaml_config.get('output_parser') or 'default'}"
+    )
 
     prompts_raw = prompt_text('输入 prompt 文件路径，多个用空格或逗号分隔', '', allow_back=True)
     datasets_raw = prompt_text('输入数据集，多个用空格或逗号分隔', '', allow_back=True)
@@ -502,6 +511,9 @@ def interactive_run(yaml_config: dict[str, Any]) -> int:
     timeout = prompt_optional_int('超时秒数 timeout', yaml_config.get('timeout'))
     temperature = prompt_optional_float('温度 temperature', yaml_config.get('temperature'))
     request_delay = prompt_optional_float('请求间隔 request_delay', yaml_config.get('request_delay'))
+    dataset_adapter = prompt_text('输入 dataset_adapter，直接回车使用 YAML 默认值', '', allow_back=True)
+    context_adapter = prompt_text('输入 context_adapter，直接回车使用 YAML 默认值', '', allow_back=True)
+    output_parser = prompt_text('输入 output_parser，直接回车使用 YAML 默认值', '', allow_back=True)
 
     args = argparse.Namespace(
         prompts=parse_multi_values(prompts_raw) if prompts_raw else None,
@@ -517,6 +529,9 @@ def interactive_run(yaml_config: dict[str, Any]) -> int:
         model=None,
         output_root=None,
         request_delay=request_delay,
+        dataset_adapter=dataset_adapter or None,
+        context_adapter=context_adapter or None,
+        output_parser=output_parser or None,
     )
     return handle_run(args, yaml_config)
 

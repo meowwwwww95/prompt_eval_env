@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from dataclasses import asdict
 from dataclasses import dataclass
@@ -62,6 +62,9 @@ class RuntimeConfig:
     api_url: str
     api_key: str
     model: str
+    dataset_adapter: str = 'default'
+    context_adapter: str = 'default'
+    output_parser: str = 'default'
 
     def output_root_path(self) -> Path:
         return Path(self.output_root)

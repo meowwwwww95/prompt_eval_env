@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import os
 import re
@@ -78,6 +78,9 @@ def build_runtime_config(args: Namespace, yaml_config: dict[str, Any]) -> Runtim
         api_url=str(_resolve_value(args, 'api_url', yaml_config, 'api_url') or ''),
         api_key=str(_resolve_value(args, 'api_key', yaml_config, 'api_key') or ''),
         model=str(_resolve_value(args, 'model', yaml_config, 'model') or ''),
+        dataset_adapter=str(_resolve_value(args, 'dataset_adapter', yaml_config, 'dataset_adapter') or 'default'),
+        context_adapter=str(_resolve_value(args, 'context_adapter', yaml_config, 'context_adapter') or 'default'),
+        output_parser=str(_resolve_value(args, 'output_parser', yaml_config, 'output_parser') or 'default'),
     )
     validate_runtime_config(config)
     return config

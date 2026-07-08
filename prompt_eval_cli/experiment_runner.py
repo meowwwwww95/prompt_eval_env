@@ -7,9 +7,10 @@ from pathlib import Path
 
 from config.skill_kb import init_kb
 
+from .adapters import get_context_adapter
+from .adapters import get_dataset_adapter
+from .adapters import get_output_parser_adapter
 from .catalog import load_prompt_templates
-from .dataset_loader import load_samples
-from .dataset_loader import normalize_dataset_choices
 from .model_executor import evaluate_one
 from .models import ExperimentMeta
 from .models import PromptTemplate
@@ -57,9 +58,12 @@ def summarize_experiment_status(records: list[dict[str, object]]) -> str:
 def run_experiment(config: RuntimeConfig) -> int:
     dataset_root = config.dataset_root_path()
     output_root = config.output_root_path()
-    datasets = normalize_dataset_choices(config.datasets)
+    dataset_adapter = get_dataset_adapter(config.dataset_adapter)
+    context_adapter = get_context_adapter(config.context_adapter)
+    output_parser_adapter = get_output_parser_adapter(config.output_parser)
+    datasets = dataset_adapter.normalize_dataset_choices(config.datasets)
     templates = load_prompt_templates(config.prompt_files)
-    samples = load_samples(dataset_root, datasets, config.sample_size, config.seed)
+    samples = dataset_adapter.load_samples(dataset_root, datasets, config.sample_size, config.seed)
     skill_kb = init_kb()
 
     run_id = datetime.now().strftime('run_%Y%m%d_%H%M%S')
@@ -89,11 +93,15 @@ def run_experiment(config: RuntimeConfig) -> int:
 
     print(f'[run] 输出目录: {run_dir}')
     print(f'[run] 样本数: {len(samples)} | prompt 版本数: {len(templates)} | 总请求数: {total_tasks}')
+    print(
+        '[run] 适配器: '
+        f'dataset={dataset_adapter.name} | context={context_adapter.name} | output={output_parser_adapter.name}'
+    )
 
     try:
         with ThreadPoolExecutor(max_workers=config.max_workers) as executor:
             futures = [
-                executor.submit(evaluate_one, sample, template, config, skill_kb)
+                executor.submit(evaluate_one, sample, template, config, skill_kb, context_adapter, output_parser_adapter)
                 for sample in samples
                 for template in templates
             ]

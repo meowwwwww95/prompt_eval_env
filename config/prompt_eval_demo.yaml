@@ -14,6 +14,10 @@ timeout: 60
 temperature: 0.1
 request_delay: 0
 
+dataset_adapter: default
+context_adapter: default
+output_parser: default
+
 api_url: ${PROMPT_EVAL_API_URL}
 api_key: ${PROMPT_EVAL_API_KEY}
 model: your-model-name
